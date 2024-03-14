@@ -18,7 +18,7 @@ public class Delivery {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Long deliveryId;
+    private Long orderId;
 
     private String productId;
 
@@ -39,28 +39,13 @@ public class Delivery {
 
     //<<< Clean Arch / Port Method
     public static void addDelivery(OrderPlaced orderPlaced) {
-        //implement business logic here:
-
-        /** Example 1:  new item 
-        Delivery delivery = new Delivery();
-        repository().save(delivery);
-
-        DeliveryAdded deliveryAdded = new DeliveryAdded(delivery);
-        deliveryAdded.publishAfterCommit();
-        */
-
-        /** Example 2:  finding and process
         
-        repository().findById(orderPlaced.get???()).ifPresent(delivery->{
-            
-            delivery // do something
-            repository().save(delivery);
+        Delivery delivery = new Delivery();
 
-            DeliveryAdded deliveryAdded = new DeliveryAdded(delivery);
-            deliveryAdded.publishAfterCommit();
-
-         });
-        */
+        delivery.setOrderId(orderPlaced.getId());
+        delivery.setProductId(orderPlaced.getProductId());
+        delivery.setQty(orderPlaced.getQty());
+        repository().save(delivery);
 
     }
     //>>> Clean Arch / Port Method
